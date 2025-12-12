@@ -1,0 +1,890 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Upnex Call Center</title>
+  <style>
+    :root {
+      --bg: #f2f4f7;
+      --card-bg: #ffffff;
+      --accent: #2563eb;
+      --accent-soft: #e0edff;
+      --text-main: #111827;
+      --text-muted: #6b7280;
+      --border: #e5e7eb;
+      --danger: #ef4444;
+      --radius-lg: 16px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+        sans-serif;
+      background: radial-gradient(circle at top, #e6f4ff 0, #edf2f7 55%, #e5edf3 100%);
+      min-height: 100vh;
+      color: var(--text-main);
+      display: flex;
+      justify-content: center;
+      padding: 32px 12px;
+    }
+
+    .app {
+      width: 100%;
+      max-width: 1120px;
+      background: rgba(255, 255, 255, 0.94);
+      backdrop-filter: blur(10px);
+      border-radius: 28px;
+      padding: 24px 28px 28px;
+      box-shadow: 0 22px 60px rgba(15, 23, 42, 0.18);
+    }
+
+    header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      margin-bottom: 20px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .avatar {
+      width: 40px;
+      height: 40px;
+      border-radius: 999px;
+      background: linear-gradient(135deg, #2563eb, #38bdf8);
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 20px;
+      box-shadow: 0 6px 18px rgba(37, 99, 235, 0.5);
+    }
+
+    h1 {
+      margin: 0;
+      font-size: 22px;
+    }
+
+    .subtitle {
+      margin: 2px 0 0;
+      font-size: 13px;
+      color: var(--text-muted);
+    }
+
+    .header-actions {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    button,
+    .btn {
+      border: none;
+      border-radius: 999px;
+      padding: 8px 14px;
+      font-size: 13px;
+      cursor: pointer;
+      background: #e5e7eb;
+      color: #111827;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: background 0.15s ease, transform 0.08s ease,
+        box-shadow 0.15s ease;
+      text-decoration: none;
+    }
+
+    button:hover,
+    .btn:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 6px 14px rgba(15, 23, 42, 0.12);
+    }
+
+    .btn-primary {
+      background: var(--accent);
+      color: #ffffff;
+    }
+
+    .btn-primary:hover {
+      background: #1d4ed8;
+    }
+
+    .btn-danger {
+      background: var(--danger);
+      color: #ffffff;
+    }
+
+    .btn-danger:hover {
+      background: #dc2626;
+    }
+
+    .btn-ghost {
+      background: transparent;
+      border: 1px dashed #d1d5db;
+      box-shadow: none;
+    }
+
+    .btn-ghost:hover {
+      background: #e5e7eb;
+      box-shadow: none;
+    }
+
+    main {
+      display: grid;
+      grid-template-columns: minmax(0, 1.1fr) minmax(0, 1.1fr);
+      gap: 24px;
+    }
+
+    @media (max-width: 900px) {
+      main {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+
+    .card {
+      background: var(--card-bg);
+      border-radius: var(--radius-lg);
+      padding: 16px 18px 18px;
+      box-shadow: 0 12px 30px rgba(15, 23, 42, 0.08);
+      border: 1px solid rgba(148, 163, 184, 0.2);
+    }
+
+    .card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 8px;
+      gap: 8px;
+    }
+
+    .card-title {
+      font-size: 16px;
+      font-weight: 600;
+    }
+
+    .card-caption {
+      font-size: 12px;
+      color: var(--text-muted);
+    }
+
+    .form-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px 14px;
+    }
+
+    @media (max-width: 700px) {
+      .form-grid {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+
+    label {
+      font-size: 12px;
+      color: var(--text-muted);
+      display: block;
+      margin-bottom: 4px;
+    }
+
+    input,
+    select,
+    textarea {
+      width: 100%;
+      padding: 8px 9px;
+      border-radius: 10px;
+      border: 1px solid var(--border);
+      font-size: 13px;
+      font-family: inherit;
+      outline: none;
+      background: #f9fafb;
+      transition: border 0.12s ease, box-shadow 0.12s ease,
+        background 0.12s ease;
+    }
+
+    input:focus,
+    select:focus,
+    textarea:focus {
+      border-color: var(--accent);
+      background: #ffffff;
+      box-shadow: 0 0 0 1px rgba(37, 99, 235, 0.1);
+    }
+
+    textarea {
+      min-height: 70px;
+      resize: vertical;
+    }
+
+    .form-row-full {
+      grid-column: 1 / -1;
+    }
+
+    .form-footer {
+      margin-top: 14px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .help-text {
+      font-size: 11px;
+      color: var(--text-muted);
+      max-width: 420px;
+    }
+
+    .help-text span {
+      font-weight: 600;
+    }
+
+    /* Leads list */
+
+    .lead-controls {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin: 6px 0 10px;
+    }
+
+    .lead-controls input {
+      max-width: 220px;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 999px;
+      font-size: 11px;
+      padding: 4px 9px;
+      font-weight: 500;
+    }
+
+    .badge-status-new {
+      background: #dbeafe;
+      color: #1d4ed8;
+    }
+
+    .badge-status-called {
+      background: #dcfce7;
+      color: #166534;
+    }
+
+    .badge-status-noanswer {
+      background: #fef3c7;
+      color: #92400e;
+    }
+
+    .badge-status-bad {
+      background: #fee2e2;
+      color: #991b1b;
+    }
+
+    .leads-list {
+      margin-top: 4px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      max-height: 520px;
+      overflow-y: auto;
+      padding-right: 4px;
+    }
+
+    .lead-card {
+      border-radius: 14px;
+      border: 1px solid var(--border);
+      background: #f9fafb;
+      padding: 10px 12px;
+    }
+
+    .lead-row-top {
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      margin-bottom: 4px;
+    }
+
+    .lead-name {
+      font-weight: 600;
+      font-size: 13px;
+    }
+
+    .lead-phone {
+      font-size: 12px;
+      color: var(--text-muted);
+    }
+
+    .lead-meta {
+      font-size: 11px;
+      color: var(--text-muted);
+      margin-top: 2px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .lead-notes {
+      font-size: 12px;
+      margin-top: 4px;
+    }
+
+    .lead-footer {
+      margin-top: 6px;
+      display: flex;
+      justify-content: space-between;
+      gap: 8px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    .lead-footer-left {
+      font-size: 11px;
+      color: var(--text-muted);
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .lead-actions {
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+    }
+
+    .empty-state {
+      padding: 14px;
+      border-radius: 12px;
+      background: #f3f4f6;
+      font-size: 12px;
+      color: var(--text-muted);
+      text-align: center;
+    }
+
+    .toast {
+      position: fixed;
+      right: 16px;
+      bottom: 16px;
+      background: #111827;
+      color: #f9fafb;
+      padding: 8px 14px;
+      border-radius: 999px;
+      font-size: 12px;
+      box-shadow: 0 12px 30px rgba(15, 23, 42, 0.25);
+      opacity: 0;
+      pointer-events: none;
+      transform: translateY(10px);
+      transition: opacity 0.15s ease, transform 0.15s ease;
+    }
+
+    .toast.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  </style>
+</head>
+<body>
+  <div class="app">
+    <header>
+      <div class="brand">
+        <div class="avatar">U</div>
+        <div>
+          <h1>Upnex Call Center</h1>
+          <p class="subtitle">Telefon qo‘ng‘iroqlarini tez va toza log qilish</p>
+        </div>
+      </div>
+      <div class="header-actions">
+        <button id="btn-export" class="btn btn-primary">CSV yuklab olish</button>
+        <button id="btn-clear-all" class="btn btn-danger">Barchasini tozalash</button>
+      </div>
+    </header>
+
+    <main>
+      <!-- LEFT: NEW CALL FORM -->
+      <section class="card">
+        <div class="card-header">
+          <div>
+            <div class="card-title">Yangi qo‘ng‘iroq</div>
+            <div class="card-caption">Netlify Forms + LocalStorage backup</div>
+          </div>
+        </div>
+
+        <!-- NETLIFY FORM -->
+        <form
+          id="call-form"
+          name="upnex-calls"
+          method="POST"
+          data-netlify="true"
+        >
+          <!-- hidden required by Netlify -->
+          <input type="hidden" name="form-name" value="upnex-calls" />
+
+          <div class="form-grid">
+            <div>
+              <label for="fullName">To‘liq ism</label>
+              <input
+                id="fullName"
+                name="fullName"
+                type="text"
+                required
+                placeholder="Masalan: Xayitbek Abdullaev"
+              />
+            </div>
+
+            <div>
+              <label for="phone">Telefon raqam</label>
+              <input
+                id="phone"
+                name="phone"
+                type="tel"
+                required
+                placeholder="+998 90 123 45 67"
+              />
+            </div>
+
+            <div>
+              <label for="reason">Qo‘ng‘iroq sababi</label>
+              <select id="reason" name="reason" required>
+                <option value="">Tanlang...</option>
+                <option>USA — Bakalavr</option>
+                <option>USA — Magistratura</option>
+                <option>Yevropa / Osiyo</option>
+                <option>IELTS / til kursi</option>
+                <option>Viza savollari</option>
+                <option>Boshqa</option>
+              </select>
+            </div>
+
+            <div>
+              <label for="source">Manba (platforma)</label>
+              <select id="source" name="source">
+                <option>Instagram</option>
+                <option>Telegram</option>
+                <option>WhatsApp</option>
+                <option>Offline ofis</option>
+                <option>Boshqa</option>
+              </select>
+            </div>
+
+            <div class="form-row-full">
+              <label for="notes">Qisqa izoh</label>
+              <textarea
+                id="notes"
+                name="notes"
+                placeholder="Masalan: IELTS yo‘q, Duolingo rejalashtirgan; budjet 2025; stipendiya muhim."
+              ></textarea>
+            </div>
+
+            <div>
+              <label for="operator">Operator</label>
+              <input
+                id="operator"
+                name="operator"
+                type="text"
+                placeholder="Kim qabul qildi? (ou / nur / ...)"
+              />
+            </div>
+
+            <div>
+              <label for="followUpDate">Follow-up kuni</label>
+              <input id="followUpDate" name="followUpDate" type="date" />
+            </div>
+
+            <div>
+              <label for="status">Status</label>
+              <select id="status" name="status">
+                <option value="new">Yangi</option>
+                <option value="called">Qo‘ng‘iroq qilindi</option>
+                <option value="noanswer">Ko‘tar-madi</option>
+                <option value="bad">Mos emas</option>
+              </select>
+            </div>
+
+            <div>
+              <label for="quality">Talaba sifatini baho</label>
+              <select id="quality" name="quality">
+                <option value="">Tanlanmagan</option>
+                <option>🔥 Juda yaxshi lead</option>
+                <option>✅ Yaxshi lead</option>
+                <option>➖ O‘rtacha</option>
+                <option>❌ Zayif / mos emas</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-footer">
+            <div class="form-buttons">
+              <button type="submit" class="btn btn-primary">Saqlash</button>
+              <button type="reset" class="btn-ghost">Tozalash</button>
+            </div>
+            <p class="help-text">
+              <span>Qanday ishlaydi:</span> Forma Netlify’da
+              <strong>upnex-calls</strong> nomida saqlanadi. Shu bilan birga,
+              brauzer LocalStorage’ga ham yoziladi va pastdagi listda ko‘rinadi.
+            </p>
+          </div>
+        </form>
+      </section>
+
+      <!-- RIGHT: RECENT LEADS -->
+      <section class="card">
+        <div class="card-header">
+          <div>
+            <div class="card-title">So‘nggi leadlar (local backup)</div>
+            <div class="card-caption">Tez qidirish va statusni yangilash</div>
+          </div>
+        </div>
+
+        <div class="lead-controls">
+          <input
+            type="text"
+            id="searchInput"
+            placeholder="Qidirish: ism, telefon, sabab, izoh..."
+          />
+          <select id="statusFilter">
+            <option value="">Status: barchasi</option>
+            <option value="new">Faqat yangi</option>
+            <option value="called">Qo‘ng‘iroq qilingan</option>
+            <option value="noanswer">Ko‘tar-maganlar</option>
+            <option value="bad">Mos emas</option>
+          </select>
+        </div>
+
+        <div id="leadsList" class="leads-list">
+          <div class="empty-state">
+            Hozircha lead yo‘q. Chap tomonda “Yangi qo‘ng‘iroq”ni
+            to‘ldirib, <strong>Saqlash</strong> tugmasini bosing.
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <div id="toast" class="toast">Lead saqlandi ✅</div>
+
+  <script>
+    const STORAGE_KEY = "upnex_call_leads_v2";
+
+    const form = document.getElementById("call-form");
+    const leadsListEl = document.getElementById("leadsList");
+    const searchInput = document.getElementById("searchInput");
+    const statusFilter = document.getElementById("statusFilter");
+    const btnExport = document.getElementById("btn-export");
+    const btnClearAll = document.getElementById("btn-clear-all");
+    const followUpInput = document.getElementById("followUpDate");
+    const toast = document.getElementById("toast");
+
+    function showToast(msg) {
+      toast.textContent = msg;
+      toast.classList.add("show");
+      setTimeout(() => toast.classList.remove("show"), 1800);
+    }
+
+    // --- init follow-up default = today + 3 days
+    function setDefaultFollowUp() {
+      const today = new Date();
+      today.setDate(today.getDate() + 3);
+      const iso = today.toISOString().slice(0, 10);
+      followUpInput.value = iso;
+    }
+    setDefaultFollowUp();
+
+    let leads = [];
+
+    function loadLeads() {
+      try {
+        const raw = localStorage.getItem(STORAGE_KEY);
+        leads = raw ? JSON.parse(raw) : [];
+      } catch (err) {
+        console.error("Cannot load leads:", err);
+        leads = [];
+      }
+    }
+
+    function saveLeads() {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(leads));
+      renderLeads();
+    }
+
+    function formatDate(dateStr) {
+      if (!dateStr) return "";
+      const d = new Date(dateStr);
+      if (isNaN(d.getTime())) return dateStr;
+      return d.toLocaleDateString("uz-UZ", {
+        year: "numeric",
+        month: "2-digit",
+        day: "2-digit",
+      });
+    }
+
+    function getStatusBadgeClass(status) {
+      if (status === "called") return "badge badge-status-called";
+      if (status === "noanswer") return "badge badge-status-noanswer";
+      if (status === "bad") return "badge badge-status-bad";
+      return "badge badge-status-new";
+    }
+
+    function getStatusText(status) {
+      if (status === "called") return "Qo‘ng‘iroq qilindi";
+      if (status === "noanswer") return "Ko‘tar-madi";
+      if (status === "bad") return "Mos emas";
+      return "Yangi";
+    }
+
+    function renderLeads() {
+      const query = searchInput.value.toLowerCase().trim();
+      const filterStatus = statusFilter.value;
+
+      if (!leads.length) {
+        leadsListEl.innerHTML =
+          '<div class="empty-state">Leadlar hali yo‘q. Yangi qo‘ng‘iroqni saqlang.</div>';
+        return;
+      }
+
+      let filtered = leads.slice().sort((a, b) => b.createdAt - a.createdAt);
+
+      if (filterStatus) {
+        filtered = filtered.filter((lead) => lead.status === filterStatus);
+      }
+
+      if (query) {
+        filtered = filtered.filter((lead) => {
+          const blob =
+            (lead.fullName || "") +
+            " " +
+            (lead.phone || "") +
+            " " +
+            (lead.reason || "") +
+            " " +
+            (lead.notes || "") +
+            " " +
+            (lead.operator || "");
+          return blob.toLowerCase().includes(query);
+        });
+      }
+
+      if (!filtered.length) {
+        leadsListEl.innerHTML =
+          '<div class="empty-state">Bu filtr bo‘yicha hech narsa topilmadi.</div>';
+        return;
+      }
+
+      leadsListEl.innerHTML = "";
+      filtered.forEach((lead) => {
+        const card = document.createElement("div");
+        card.className = "lead-card";
+
+        const createdAtLocal = new Date(lead.createdAt).toLocaleString(
+          "uz-UZ",
+          {
+            dateStyle: "short",
+            timeStyle: "short",
+          }
+        );
+
+        card.innerHTML = `
+          <div class="lead-row-top">
+            <div>
+              <div class="lead-name">${lead.fullName || "Ism kiritilmagan"}</div>
+              <div class="lead-phone">${lead.phone || ""}</div>
+            </div>
+            <div class="${getStatusBadgeClass(lead.status)}">
+              ${getStatusText(lead.status)}
+            </div>
+          </div>
+
+          <div class="lead-meta">
+            <span><strong>Sabab:</strong> ${lead.reason || "-"}</span>
+            <span><strong>Manba:</strong> ${lead.source || "-"}</span>
+            ${
+              lead.quality
+                ? `<span><strong>Lead:</strong> ${lead.quality}</span>`
+                : ""
+            }
+          </div>
+
+          ${
+            lead.notes
+              ? `<div class="lead-notes"><strong>Izoh:</strong> ${lead.notes}</div>`
+              : ""
+          }
+
+          <div class="lead-footer">
+            <div class="lead-footer-left">
+              <span><strong>Operator:</strong> ${lead.operator || "-"}</span>
+              ${
+                lead.followUpDate
+                  ? `<span><strong>Follow-up:</strong> ${formatDate(
+                      lead.followUpDate
+                    )}</span>`
+                  : ""
+              }
+              <span>${createdAtLocal}</span>
+            </div>
+            <div class="lead-actions">
+              <button class="btn btn-ghost" data-action="toggle-status" data-id="${
+                lead.id
+              }">
+                Statusni o‘zgartirish
+              </button>
+              <button class="btn btn-danger" data-action="delete" data-id="${
+                lead.id
+              }">
+                O‘chirish
+              </button>
+            </div>
+          </div>
+        `;
+
+        leadsListEl.appendChild(card);
+      });
+    }
+
+    function encodeFormData(formData) {
+      return Array.from(formData.entries())
+        .map(
+          ([key, value]) =>
+            encodeURIComponent(key) + "=" + encodeURIComponent(value)
+        )
+        .join("&");
+    }
+
+    // --- event: form submit (LocalStorage + Netlify)
+    form.addEventListener("submit", (e) => {
+      e.preventDefault();
+
+      const data = new FormData(form);
+
+      const lead = {
+        id: Date.now().toString(),
+        createdAt: Date.now(),
+        fullName: data.get("fullName")?.trim(),
+        phone: data.get("phone")?.trim(),
+        reason: data.get("reason"),
+        source: data.get("source"),
+        notes: data.get("notes")?.trim(),
+        operator: data.get("operator")?.trim(),
+        followUpDate: data.get("followUpDate"),
+        status: data.get("status") || "new",
+        quality: data.get("quality"),
+      };
+
+      leads.push(lead);
+      saveLeads();
+
+      // send to Netlify Forms
+      fetch("/", {
+        method: "POST",
+        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        body: encodeFormData(data),
+      }).catch((err) => console.error("Netlify form error:", err));
+
+      form.reset();
+      setDefaultFollowUp();
+      showToast("Lead saqlandi ✅");
+    });
+
+    // --- events: filters
+    searchInput.addEventListener("input", renderLeads);
+    statusFilter.addEventListener("change", renderLeads);
+
+    // --- event: actions in leads list
+    leadsListEl.addEventListener("click", (e) => {
+      const btn = e.target.closest("button");
+      if (!btn) return;
+
+      const id = btn.getAttribute("data-id");
+      const action = btn.getAttribute("data-action");
+      if (!id || !action) return;
+
+      const idx = leads.findIndex((l) => l.id === id);
+      if (idx === -1) return;
+
+      if (action === "delete") {
+        if (confirm("Bu leadni o‘chirmoqchimisiz?")) {
+          leads.splice(idx, 1);
+          saveLeads();
+        }
+      } else if (action === "toggle-status") {
+        const current = leads[idx].status || "new";
+        const order = ["new", "called", "noanswer", "bad"];
+        const next = order[(order.indexOf(current) + 1) % order.length];
+        leads[idx].status = next;
+        saveLeads();
+      }
+    });
+
+    // --- export CSV
+    btnExport.addEventListener("click", () => {
+      if (!leads.length) {
+        alert("Eksport qilish uchun leadlar yo‘q.");
+        return;
+      }
+      const header = [
+        "id",
+        "createdAt",
+        "fullName",
+        "phone",
+        "reason",
+        "source",
+        "notes",
+        "operator",
+        "followUpDate",
+        "status",
+        "quality",
+      ];
+
+      const rows = leads.map((l) =>
+        header
+          .map((key) => {
+            const value =
+              key === "createdAt"
+                ? new Date(l[key]).toISOString()
+                : l[key] ?? "";
+            const v = String(value).replace(/"/g, '""');
+            return `"${v}"`;
+          })
+          .join(",")
+      );
+
+      const csv = [header.join(","), ...rows].join("\n");
+      const blob = new Blob([csv], { type: "text/csv;charset=utf-8;" });
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement("a");
+      link.href = url;
+      link.download = "upnex-call-center-leads.csv";
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      URL.revokeObjectURL(url);
+    });
+
+    // --- clear all
+    btnClearAll.addEventListener("click", () => {
+      if (!leads.length) return;
+      if (
+        confirm(
+          "Rostdan ham barcha leadlarni o‘chirmoqchimisiz? Bu faqat shu kompyuterdagi LocalStorage’dan o‘chadi."
+        )
+      ) {
+        leads = [];
+        saveLeads();
+      }
+    });
+
+    // initial
+    loadLeads();
+    renderLeads();
+  </script>
+</body>
+</html>
