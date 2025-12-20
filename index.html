@@ -2,300 +2,406 @@
 <html lang="uz">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Upnex Call Center</title>
 
   <style>
-    :root {
-      --bg: #f2f4f7;
-      --card-bg: #ffffff;
-      --accent: #2563eb;
-      --text-main: #111827;
-      --text-muted: #6b7280;
-      --border: #e5e7eb;
-      --danger: #ef4444;
-      --radius: 16px;
+    :root{
+      --bg:#eef4ff;
+      --card:#ffffff;
+      --primary:#2563eb;
+      --primary-soft:#e0edff;
+      --danger:#ef4444;
+      --text:#111827;
+      --muted:#6b7280;
+      --border:#e5e7eb;
+      --radius:18px;
     }
 
-    * { box-sizing: border-box; }
+    *{box-sizing:border-box}
 
-    body {
-      margin: 0;
+    body{
+      margin:0;
       font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      background: radial-gradient(circle at top, #e6f4ff, #edf2f7);
-      min-height: 100vh;
-      display: flex;
-      justify-content: center;
-      padding: 24px;
-      color: var(--text-main);
+      background:linear-gradient(180deg,#eaf2ff,#f5f9ff);
+      min-height:100vh;
+      padding:32px;
+      color:var(--text);
     }
 
-    .app {
-      width: 100%;
-      max-width: 1100px;
-      background: #ffffffee;
-      border-radius: 28px;
-      padding: 24px;
-      box-shadow: 0 20px 50px rgba(0,0,0,.15);
+    .container{
+      max-width:1200px;
+      margin:auto;
+      background:#fff;
+      border-radius:28px;
+      padding:24px;
+      box-shadow:0 30px 80px rgba(15,23,42,.15);
     }
 
-    header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 20px;
-      gap: 12px;
+    /* HEADER */
+    header{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      margin-bottom:24px;
+      gap:12px;
     }
 
-    h1 { margin: 0; font-size: 22px; }
-
-    .subtitle {
-      font-size: 13px;
-      color: var(--text-muted);
+    .brand{
+      display:flex;
+      gap:12px;
+      align-items:center;
     }
 
-    button {
-      border: none;
-      border-radius: 999px;
-      padding: 8px 14px;
-      font-size: 13px;
-      cursor: pointer;
-      background: #e5e7eb;
+    .avatar{
+      width:44px;height:44px;
+      border-radius:50%;
+      background:linear-gradient(135deg,#2563eb,#38bdf8);
+      color:#fff;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      font-weight:700;
+      font-size:20px;
+      box-shadow:0 8px 20px rgba(37,99,235,.4);
     }
 
-    .btn-primary { background: var(--accent); color: #fff; }
-    .btn-danger { background: var(--danger); color: #fff; }
+    h1{margin:0;font-size:22px}
+    .subtitle{font-size:13px;color:var(--muted)}
 
-    main {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 20px;
+    .header-actions{
+      display:flex;
+      gap:10px;
     }
 
-    @media (max-width: 900px) {
-      main { grid-template-columns: 1fr; }
+    button{
+      border:none;
+      border-radius:999px;
+      padding:9px 16px;
+      font-size:13px;
+      cursor:pointer;
+      display:flex;
+      align-items:center;
+      gap:6px;
     }
 
-    .card {
-      background: var(--card-bg);
-      border-radius: var(--radius);
-      padding: 16px;
-      border: 1px solid var(--border);
+    .btn-primary{background:var(--primary);color:#fff}
+    .btn-danger{background:var(--danger);color:#fff}
+
+    /* MAIN */
+    main{
+      display:grid;
+      grid-template-columns:1.1fr 1fr;
+      gap:24px;
     }
 
-    label {
-      font-size: 12px;
-      color: var(--text-muted);
-      display: block;
-      margin-bottom: 4px;
+    @media(max-width:900px){
+      main{grid-template-columns:1fr}
     }
 
-    input, select, textarea {
-      width: 100%;
-      padding: 8px;
-      border-radius: 10px;
-      border: 1px solid var(--border);
-      font-size: 13px;
+    .card{
+      background:var(--card);
+      border-radius:var(--radius);
+      padding:18px;
+      box-shadow:0 18px 40px rgba(15,23,42,.08);
+      border:1px solid var(--border);
     }
 
-    textarea { resize: vertical; min-height: 70px; }
-
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 12px;
+    .card-title{
+      font-size:16px;
+      font-weight:600;
+      margin-bottom:2px;
     }
 
-    .full { grid-column: 1 / -1; }
-
-    .leads {
-      max-height: 520px;
-      overflow-y: auto;
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
+    .card-caption{
+      font-size:12px;
+      color:var(--muted);
+      margin-bottom:14px;
     }
 
-    .lead {
-      padding: 10px;
-      border-radius: 12px;
-      background: #f9fafb;
-      border: 1px solid var(--border);
-      font-size: 13px;
+    /* FORM */
+    .grid{
+      display:grid;
+      grid-template-columns:repeat(2,1fr);
+      gap:14px;
     }
 
-    .lead strong { font-size: 14px; }
+    .full{grid-column:1/-1}
 
-    .toast {
-      position: fixed;
-      bottom: 16px;
-      right: 16px;
-      background: #111827;
-      color: #fff;
-      padding: 8px 14px;
-      border-radius: 999px;
-      font-size: 12px;
-      opacity: 0;
-      transition: .2s;
+    label{
+      font-size:12px;
+      color:var(--muted);
+      margin-bottom:4px;
+      display:block;
     }
 
-    .toast.show { opacity: 1; }
+    input,select,textarea{
+      width:100%;
+      padding:9px 10px;
+      border-radius:12px;
+      border:1px solid var(--border);
+      font-size:13px;
+      background:#f9fafb;
+    }
+
+    textarea{min-height:70px;resize:vertical}
+
+    .form-actions{
+      display:flex;
+      gap:10px;
+      margin-top:14px;
+    }
+
+    .btn-ghost{
+      background:#f3f4f6;
+      color:#111;
+    }
+
+    /* LEADS */
+    .controls{
+      display:flex;
+      gap:10px;
+      margin-bottom:12px;
+    }
+
+    .controls input,.controls select{
+      padding:7px 10px;
+      border-radius:999px;
+      font-size:12px;
+    }
+
+    .lead{
+      border:1px solid var(--border);
+      border-radius:14px;
+      padding:12px;
+      margin-bottom:10px;
+      background:#f9fafb;
+    }
+
+    .lead-top{
+      display:flex;
+      justify-content:space-between;
+      margin-bottom:6px;
+      gap:8px;
+    }
+
+    .lead-name{font-weight:600;font-size:14px}
+    .lead-phone{font-size:12px;color:var(--muted)}
+
+    .badge{
+      font-size:11px;
+      padding:4px 10px;
+      border-radius:999px;
+      background:var(--primary-soft);
+      color:var(--primary);
+      height:fit-content;
+    }
+
+    .lead-meta{
+      font-size:12px;
+      color:var(--muted);
+      margin-bottom:6px;
+    }
+
+    .lead-actions{
+      display:flex;
+      gap:8px;
+      margin-top:8px;
+    }
+
+    .small-btn{
+      font-size:11px;
+      padding:6px 10px;
+      border-radius:999px;
+      border:none;
+      cursor:pointer;
+    }
+
+    .outline{
+      background:#fff;
+      border:1px dashed var(--border);
+    }
+
+    .toast{
+      position:fixed;
+      right:18px;
+      bottom:18px;
+      background:#111827;
+      color:#fff;
+      padding:10px 16px;
+      border-radius:999px;
+      font-size:12px;
+      opacity:0;
+      transition:.2s;
+    }
+
+    .toast.show{opacity:1}
   </style>
 </head>
 
 <body>
-  <div class="app">
-    <header>
-      <div>
-        <h1>Upnex Call Center</h1>
-        <div class="subtitle">Netlify Forms + LocalStorage</div>
-      </div>
-      <div>
-        <button id="export" class="btn-primary">CSV yuklab olish</button>
-        <button id="clear" class="btn-danger">Tozalash</button>
-      </div>
-    </header>
+<div class="container">
 
-    <main>
-      <!-- FORM -->
-      <section class="card">
-        <h3>Yangi qo‘ng‘iroq</h3>
-
-        <form
-          name="upnex-calls"
-          method="POST"
-          data-netlify="true"
-          netlify
-        >
-          <!-- REQUIRED FOR NETLIFY -->
-          <input type="hidden" name="form-name" value="upnex-calls" />
-          <input type="hidden" name="bot-field" />
-
-          <div class="grid">
-            <div>
-              <label>Ism</label>
-              <input name="fullName" required />
-            </div>
-
-            <div>
-              <label>Telefon</label>
-              <input name="phone" required />
-            </div>
-
-            <div>
-              <label>Sabab</label>
-              <select name="reason">
-                <option>USA – Bakalavr</option>
-                <option>USA – Magistr</option>
-                <option>Yevropa / Osiyo</option>
-                <option>IELTS</option>
-              </select>
-            </div>
-
-            <div>
-              <label>Manba</label>
-              <select name="source">
-                <option>Instagram</option>
-                <option>Telegram</option>
-                <option>WhatsApp</option>
-              </select>
-            </div>
-
-            <div class="full">
-              <label>Izoh</label>
-              <textarea name="notes"></textarea>
-            </div>
-
-            <div>
-              <label>Operator</label>
-              <input name="operator" />
-            </div>
-
-            <div>
-              <label>Status</label>
-              <select name="status">
-                <option value="new">Yangi</option>
-                <option value="called">Qo‘ng‘iroq qilindi</option>
-                <option value="noanswer">Ko‘tar-madi</option>
-                <option value="bad">Mos emas</option>
-              </select>
-            </div>
-          </div>
-
-          <br />
-          <button type="submit" class="btn-primary">Saqlash</button>
-        </form>
-      </section>
-
-      <!-- LEADS -->
-      <section class="card">
-        <h3>So‘nggi leadlar</h3>
-        <div id="leads" class="leads"></div>
-      </section>
-    </main>
+<header>
+  <div class="brand">
+    <div class="avatar">U</div>
+    <div>
+      <h1>Upnex Call Center</h1>
+      <div class="subtitle">Telefon qo‘ng‘iroqlarini tez va toza log qilish</div>
+    </div>
   </div>
+  <div class="header-actions">
+    <button class="btn-primary" id="export">CSV yuklab olish</button>
+    <button class="btn-danger" id="clear">Barchasini tozalash</button>
+  </div>
+</header>
 
-  <div id="toast" class="toast">Lead saqlandi ✅</div>
+<main>
 
-  <script>
-    const STORAGE = "upnex_leads_v3";
-    const leadsEl = document.getElementById("leads");
-    const toast = document.getElementById("toast");
-    const exportBtn = document.getElementById("export");
-    const clearBtn = document.getElementById("clear");
+<!-- FORM -->
+<section class="card">
+  <div class="card-title">Yangi qo‘ng‘iroq</div>
+  <div class="card-caption">Netlify Forms + LocalStorage backup</div>
 
-    let leads = JSON.parse(localStorage.getItem(STORAGE) || "[]");
+  <form name="upnex-calls" method="POST" data-netlify="true" netlify>
+    <input type="hidden" name="form-name" value="upnex-calls"/>
+    <input type="hidden" name="bot-field"/>
 
-    function render() {
-      leadsEl.innerHTML = "";
-      if (!leads.length) {
-        leadsEl.innerHTML = "<div>Hozircha lead yo‘q</div>";
-        return;
-      }
-      leads.slice().reverse().forEach(l => {
-        leadsEl.innerHTML += `
-          <div class="lead">
-            <strong>${l.fullName}</strong> (${l.phone})<br/>
-            ${l.reason} • ${l.source}<br/>
-            <small>${l.operator || "-"} | ${l.status}</small>
+    <div class="grid">
+      <div>
+        <label>To‘liq ism</label>
+        <input name="fullName" required>
+      </div>
+      <div>
+        <label>Telefon raqam</label>
+        <input name="phone" required>
+      </div>
+      <div>
+        <label>Qo‘ng‘iroq sababi</label>
+        <select name="reason">
+          <option>USA — Bakalavr</option>
+          <option>USA — Magistr</option>
+          <option>Yevropa / Osiyo</option>
+          <option>Viza</option>
+        </select>
+      </div>
+      <div>
+        <label>Manba</label>
+        <select name="source">
+          <option>Instagram</option>
+          <option>Telegram</option>
+          <option>WhatsApp</option>
+        </select>
+      </div>
+      <div class="full">
+        <label>Qisqa izoh</label>
+        <textarea name="notes"></textarea>
+      </div>
+      <div>
+        <label>Operator</label>
+        <input name="operator">
+      </div>
+      <div>
+        <label>Status</label>
+        <select name="status">
+          <option>Yangi</option>
+          <option>Qo‘ng‘iroq qilindi</option>
+          <option>Ko‘tar-madi</option>
+          <option>Mos emas</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="form-actions">
+      <button class="btn-primary" type="submit">Saqlash</button>
+      <button class="btn-ghost" type="reset">Tozalash</button>
+    </div>
+  </form>
+</section>
+
+<!-- LEADS -->
+<section class="card">
+  <div class="card-title">So‘nggi leadlar (local backup)</div>
+  <div class="card-caption">Tez qidirish va statusni yangilash</div>
+
+  <div id="leads"></div>
+</section>
+
+</main>
+</div>
+
+<div class="toast" id="toast">Lead saqlandi ✅</div>
+
+<script>
+const STORAGE="upnex-ui-leads";
+const leadsEl=document.getElementById("leads");
+const toast=document.getElementById("toast");
+
+let leads=JSON.parse(localStorage.getItem(STORAGE)||"[]");
+
+function render(){
+  leadsEl.innerHTML="";
+  if(!leads.length){
+    leadsEl.innerHTML="<div class='lead'>Hozircha lead yo‘q</div>";
+    return;
+  }
+  leads.slice().reverse().forEach(l=>{
+    leadsEl.innerHTML+=`
+      <div class="lead">
+        <div class="lead-top">
+          <div>
+            <div class="lead-name">${l.fullName}</div>
+            <div class="lead-phone">${l.phone}</div>
           </div>
-        `;
-      });
-    }
+          <div class="badge">Yangi</div>
+        </div>
+        <div class="lead-meta">
+          Sabab: ${l.reason} • Manba: ${l.source}
+        </div>
+        ${l.notes?`<div class="lead-meta">Izoh: ${l.notes}</div>`:""}
+        <div class="lead-actions">
+          <button class="small-btn outline" onclick="removeLead(${l.id})">O‘chirish</button>
+        </div>
+      </div>`;
+  });
+}
 
+function removeLead(id){
+  leads=leads.filter(l=>l.id!==id);
+  localStorage.setItem(STORAGE,JSON.stringify(leads));
+  render();
+}
+
+document.querySelector("form").addEventListener("submit",e=>{
+  const data=new FormData(e.target);
+  const lead=Object.fromEntries(data.entries());
+  lead.id=Date.now();
+  leads.push(lead);
+  localStorage.setItem(STORAGE,JSON.stringify(leads));
+  toast.classList.add("show");
+  setTimeout(()=>toast.classList.remove("show"),1500);
+  render();
+});
+
+document.getElementById("export").onclick=()=>{
+  if(!leads.length)return alert("Lead yo‘q");
+  const keys=Object.keys(leads[0]);
+  const csv=[keys.join(","),...leads.map(l=>keys.map(k=>`"${l[k]||""}"`).join(","))].join("\n");
+  const a=document.createElement("a");
+  a.href=URL.createObjectURL(new Blob([csv]));
+  a.download="upnex-leads.csv";
+  a.click();
+};
+
+document.getElementById("clear").onclick=()=>{
+  if(confirm("Barchasini o‘chirishni xohlaysizmi?")){
+    leads=[];
+    localStorage.removeItem(STORAGE);
     render();
+  }
+};
 
-    document.querySelector("form").addEventListener("submit", e => {
-      const data = new FormData(e.target);
-      const lead = Object.fromEntries(data.entries());
-      lead.createdAt = Date.now();
-      leads.push(lead);
-      localStorage.setItem(STORAGE, JSON.stringify(leads));
-      toast.classList.add("show");
-      setTimeout(() => toast.classList.remove("show"), 1500);
-    });
-
-    exportBtn.onclick = () => {
-      if (!leads.length) return alert("Lead yo‘q");
-      const keys = Object.keys(leads[0]);
-      const csv = [
-        keys.join(","),
-        ...leads.map(l => keys.map(k => `"${l[k]||""}"`).join(","))
-      ].join("\n");
-
-      const a = document.createElement("a");
-      a.href = URL.createObjectURL(new Blob([csv]));
-      a.download = "upnex-leads.csv";
-      a.click();
-    };
-
-    clearBtn.onclick = () => {
-      if (confirm("Barchasini o‘chiraymi?")) {
-        leads = [];
-        localStorage.removeItem(STORAGE);
-        render();
-      }
-    };
-  </script>
+render();
+</script>
 </body>
 </html>
